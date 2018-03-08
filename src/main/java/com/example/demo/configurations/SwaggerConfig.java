@@ -1,6 +1,6 @@
 package com.example.demo.configurations;
 
-import static com.google.common.base.Predicates.or;
+
 import static springfox.documentation.builders.PathSelectors.regex;
 
 import org.springframework.context.annotation.Bean;
@@ -25,13 +25,13 @@ public class SwaggerConfig {
 	}
 
 	private Predicate<String> postPaths() {
-		return or(regex("/api/posts.*"), regex("/api/employee.org.*"));
+		return regex("/applicationDemo.*");
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Employee API").description("Employee API reference for developers")
-				.termsOfServiceUrl("http://Employee.com").description("Employee.com").license("JobPortal License")
-				.licenseUrl("Employee@gmail.com").version("1.2").build();
+		return new ApiInfoBuilder().title("Registration API").description("Registration API reference for developers")
+				.termsOfServiceUrl("http://RegisterDemo.com").description("RegisterDemo.com").license("ApplicationDemo Licence")
+				.licenseUrl("RegisterDemo@gmail.com").version("1.2").build();
 	}
-	
+
 }
