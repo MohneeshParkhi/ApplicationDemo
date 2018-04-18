@@ -8,9 +8,10 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 //import org.springframework.cache.annotation.EnableCaching;
 
 
-//@EnableDiscoveryClient
-//@EnableCircuitBreaker
-//@EnableHystrixDashboard
+
+@EnableCircuitBreaker
+@EnableHystrixDashboard
+@EnableDiscoveryClient
 @SpringBootApplication
 public class ApplicationDemoApplication {
 

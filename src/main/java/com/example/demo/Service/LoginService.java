@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.LoginModel;
@@ -36,14 +38,21 @@ public static int validateCredentials(List<RegisterCustomer> listCustomer, Strin
 			}
 			return passwordvalidateId;
 			
+			
+			
 	}
 
-	public int validateLogin(LoginModel login) {
+	public ResponseEntity<?> validateLogin(LoginModel login) {
 		String username =login.getEmail();
 		String password= login.getPassword();
 		List<RegisterCustomer> listCustomer=	registerCustomerRepository.findAll();
-		 int passwordValidateId = validateCredentials(listCustomer,username,password);
-	return passwordValidateId;
+		//calling to check validation
+		int idloginCheck=validateCredentials(listCustomer,username,password);
+	           
+		 if(idloginCheck==1)
+		 return new ResponseEntity<>(login,HttpStatus.OK);
+		 else
+			 return new ResponseEntity<>(false,HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 	
 		}

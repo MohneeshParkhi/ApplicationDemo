@@ -19,7 +19,7 @@ public class RegistrationService {
     @Autowired
 	RegisterCustomerRepo registerCustomerRepo;
 	
-    @Cacheable("registerCustomer")
+    //@Cacheable("registerCustomer")
 	public ResponseEntity<?> saveCustomerInfo(RegisterCustomer registerCustomer) {
 		
 		registerCustomerRepo.saveAndFlush(registerCustomer);
@@ -74,6 +74,13 @@ public class RegistrationService {
 		listString.add("Hystrix Method FallBack");
 		listString.add("Hystrix Method FallBack");
 		return new ResponseEntity<>(listString,HttpStatus.OK);
+	}
+
+	public ResponseEntity<?> saveCustInfoFallBack() {
+		
+		
+		
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	//update method is incomplete as need the

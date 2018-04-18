@@ -7,22 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 //import org.hibernate.annotations.GeneratorType;
 
 @Entity
 @Table(name="RegisterCustomer")
 public class RegisterCustomer {
 
-@Id
-@GeneratedValue(strategy=GenerationType.AUTO)
+
 @Column(name="custId")
 private Long custId;
-
-@Override
-public String toString() {
-	return "RegisterCustomer [custId=" + custId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
-			+ emailId + "]";
-}
 
 @Column(name="firstName")
 private String firstName;
@@ -33,24 +29,27 @@ private String lastName;
 @Column(name="emailId")
 private String emailId;
 
-
-
 @Column(name="password")
 private String password;
 
 
-public RegisterCustomer(Long custId, String firstName, String lastName, String emailId, 
-		String password) {
+
+public RegisterCustomer() {
+	
+}
+
+
+public RegisterCustomer(Long custId, String firstName, String lastName, String emailId, String password) {
 	super();
 	this.custId = custId;
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.emailId = emailId;
-	
 	this.password = password;
 }
 
-
+@Id
+@GeneratedValue(strategy=GenerationType.AUTO)
 public Long getCustId() {
 	return custId;
 }
@@ -103,11 +102,12 @@ public void setPassword(String password) {
 }
 
 
-public RegisterCustomer() {
-	super();
-	
-} 
 
+@Override
+public String toString() {
+	return "RegisterCustomer [custId=" + custId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
+			+ emailId + ", password=" + password + "]";
+}
 
 
 }

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,8 +23,8 @@ import com.example.demo.model.RegisterCustomer;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
-@RequestMapping(value = "/applicationDemo")
-@CrossOrigin(value="http://localhost:4200")
+@RequestMapping(value ="/applicationDemo")
+@CrossOrigin
 public class ApplictaionController {
 
 	@Autowired
@@ -31,13 +32,23 @@ public class ApplictaionController {
 	
 	@Autowired
 	LoginService loginService;
-
-	@PostMapping(value = "/saveCustInfo")
+    
+	//@HystrixCommand(fallbackMethod="/saveCustInfoFallBack")
+	@PostMapping(value = "/saveCustInfo",consumes= {"application/Json"},produces= {"application/Json"})
 	public ResponseEntity<?> saveInformation(@RequestBody RegisterCustomer registerCustomer) {
+		
+		System.out.println(registerCustomer.getEmailId());
 		return registerService.saveCustomerInfo(registerCustomer);
 
 	}
-
+    
+	
+	
+	public ResponseEntity<?> saveCustInfoFallBack(){
+		return registerService.saveCustInfoFallBack();
+	}
+	
+	
 	/*
 	 * @GetMapping(value="/getLoginValidate") public ResponseEntity<?>
 	 * getLoginValidate(@RequestBody LoginValidate loginValidate){ return
@@ -45,15 +56,17 @@ public class ApplictaionController {
 	 * 
 	 * }
 	 */
-	@PostMapping(value="/validateLogin")
-	public int validateLogin(@RequestBody LoginModel login)
+	@PostMapping(value = "/validateLogin",consumes= {"application/json"},produces= {"application/json"})
+	public ResponseEntity<?> validateLogin(@RequestBody LoginModel login)
 	{
-		System.out.println(login);
-		int validateId = loginService.validateLogin(login);; 
-		System.out.println(validateId);
+		//System.out.println(login);
 		
-		return validateId;
+		if(login.equals(null))
+			return new ResponseEntity<>(false,HttpStatus.UNPROCESSABLE_ENTITY);
+	                                   	
+	   return 	loginService.validateLogin(login); 
 		
+		//System.out.println(validateId);
 	}
 
 	@GetMapping(value = "/getAllCustomers")
