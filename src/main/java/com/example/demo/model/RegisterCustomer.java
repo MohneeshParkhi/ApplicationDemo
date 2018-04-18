@@ -21,7 +21,7 @@ private Long custId;
 @Override
 public String toString() {
 	return "RegisterCustomer [custId=" + custId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
-			+ emailId + ", phoneNumber=" + phoneNumber + "]";
+			+ emailId + "]";
 }
 
 @Column(name="firstName")
@@ -33,21 +33,20 @@ private String lastName;
 @Column(name="emailId")
 private String emailId;
 
-@Column(name="phNumber")
-private Long phoneNumber;
+
 
 @Column(name="password")
 private String password;
 
 
-public RegisterCustomer(Long custId, String firstName, String lastName, String emailId, Long phoneNumber,
+public RegisterCustomer(Long custId, String firstName, String lastName, String emailId, 
 		String password) {
 	super();
 	this.custId = custId;
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.emailId = emailId;
-	this.phoneNumber = phoneNumber;
+	
 	this.password = password;
 }
 
@@ -92,14 +91,6 @@ public void setEmailId(String emailId) {
 }
 
 
-public Long getPhoneNumber() {
-	return phoneNumber;
-}
-
-
-public void setPhoneNumber(Long phoneNumber) {
-	this.phoneNumber = phoneNumber;
-}
 
 
 public String getPassword() {
@@ -114,7 +105,7 @@ public void setPassword(String password) {
 
 public RegisterCustomer() {
 	super();
-	// TODO Auto-generated constructor stub
+	
 } 
 
 
